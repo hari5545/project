@@ -1,0 +1,181 @@
+@(param: String) 
+
+<!-- survey model body -->
+
+
+	<div class="row">
+
+		<div class="form-group">
+			<div>
+				<input type="hidden" class="form-control"
+				 name="id" id="id">
+			</div>
+		</div>
+
+		<div class="col-md-4" >
+			<div class="form-group">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="editselOrgSurvey" class="col-sm-12 control-label"><b>Organization:</b></label>
+				</div>
+				<div>
+					<select class="form-control" id="editselOrgSurvey" name="editselOrgSurvey"
+						onchange="loadOrgUnitAlternate(this, 'selOrgUnitSurvey');"> 
+						<!-- <option>--select--</option> -->
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group" >
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="editselOrgUnitSurvey" class="col-sm-12 control-label"
+						for="ou_deptselector"><b>Organization Unit:</b></label>
+				</div>
+				<div>
+					<select id="editSelOrgUnitSurvey" name="editselOrgUnitSurvey"
+						class="form-control" >
+						<!-- onchange="loadTabsOrgUnitAlternate(this,'selOrgSurvey','selTabSurvey');"> -->
+					<!-- 	<option>--select--</option> -->
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="selTabSurvey" class="col-sm-12 control-label"
+						for="ou_tabselector"><b>Tabs:</b></label>
+				</div>
+				<div>
+					<select id="editSelTabSurvey" name="selTabSurvey" class="form-control">
+						
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group" >
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="startDate" class="col-sm-12 control-label"
+						for="ou_tabselector"><b>Start Date:</b></label>
+				</div>
+
+				<div>
+					<input type="date" class="form-control" name="startDate"
+						id="editStartDate">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group" >
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" for="endDate"
+						class="col-sm-12 control-label" for="ou_tabselector"><b>End
+							Date:</b></label>
+				</div>
+
+				<div>
+					<input type="date" class="form-control" name="endDate"
+						id="editEndDate" >
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" for="surveyName"
+						class="col-sm-12 control-label" for="ou_tabselector"><b>Survey Name:</b></label>
+				</div>
+
+				<div>
+					<input type="text" class="form-control"  name="surveyName"
+						id="editSurveyName" placeholder="Please enter survey name ">
+
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-12">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" for="endDate"
+						class="col-sm-12 control-label" for="ou_tabselector"><b>Question:</b></label>
+				</div>
+
+				<div>
+					<textarea rows="4" class="form-control" name="question"
+						id="editQuestion" placeholder="Enter Question"></textarea>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" for="types"
+						class="col-sm-12 control-label" for="ou_tabselector"><b>Types:</b></label>
+				</div>
+				<div>
+					<select id="editTypes" name="types" class="form-control"
+						onchange="showMultipleTypes(this,'option')">
+						<option>--Select--</option>
+						<option>Rating</option>
+						<option>Multiple</option>
+						<option>Yes/No</option>
+						<option>TextBox</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group" id="option">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="input-options" class="col-sm-12 control-label"><b>Options
+							:</b></label>
+				</div>
+
+				<div>
+					<input type="text" class="form-control" name="options" id="edit-input-options"
+						placeholder="Enter options" />
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-group">
+				<button id="add-btn" data-current-content="" type="button"
+					class="btn btn-primary btn-block"
+					style="margin-top:35px;right: 20px; left: 15px; background-color: #4CAF50;" onclick="displaySurvey('update','editQuestion','editTypes','edit-input-options');">Add
+				</button>
+			</div>
+		</div>
+		
+		<div class="col-md-12 ">
+			<div>
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Question</th>
+							<th scope="col">Type</th>
+							<th scope="col">Answers</th>
+							<th scope="col">Select</th>
+						</tr>
+					</thead>
+					<tbody id="editsurveyBody">
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>

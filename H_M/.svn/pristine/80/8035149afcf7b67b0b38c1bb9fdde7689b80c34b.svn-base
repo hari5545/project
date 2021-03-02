@@ -1,0 +1,37 @@
+db {
+ 
+	homing.driver=com.mysql.jdbc.Driver
+	homing.url="jdbc:mysql://192.168.1.235:3306/homingdb?useSSL=false"
+	homing.username=espocrm
+	homing.password="P@s$w0rd123!"
+	
+  # Provided for JPA access
+  homing.jndiName=DefaultDS
+  
+   homing.logSql=false
+}
+
+# Point JPA at our database configuration
+jpa.default=defaultPersistenceUnit
+
+# Number of database connections
+# See https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+# db connections = ((physical_core_count * 2) + effective_spindle_count)
+fixedConnectionPool = 9
+
+# Set Hikari to fixed size
+play.db {
+  prototype {
+    hikaricp.minimumIdle = ${fixedConnectionPool}
+    hikaricp.maximumPoolSize = ${fixedConnectionPool}
+  }
+}
+
+# Job queue sized to HikariCP connection pool
+database.dispatcher {
+  executor = "thread-pool-executor"
+  throughput = 1
+  thread-pool-executor {
+    fixed-pool-size = ${fixedConnectionPool}
+  }
+}

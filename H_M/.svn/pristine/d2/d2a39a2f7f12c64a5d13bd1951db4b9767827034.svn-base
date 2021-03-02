@@ -1,0 +1,60 @@
+@(titleMessage: String)(username: String)(flag: String)
+
+@header(titleMessage)(username)("login")
+
+@import helper._
+
+<div class="login-container">
+    <div class="row">
+        <div class="col-md-4 offset-md-2 login-form-colored">
+            <h3 style="font-weight: 800;">Homing Admin</h3>
+            <form>
+                <div class="form-group">
+                    <p><img class="login-logo rounded mx-auto d-block" src='@routes.Assets.versioned("images/temp_logo.png")' style="width: 50%;"></p>
+                    <p class="product-description">This is a placeholder text which explains about the product in simple terms. This is a placeholder text which explains about the product in simple terms. This is a placeholder text. This is a placeholder text. </p>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 login-form-white">
+            <h3 style="font-weight: 800;">Login</h3>
+            @form(action = routes.LoginController.authenticate, 'id -> "adminLogin", 'enctype -> "multipart/form-data"){
+                    @CSRF.formField
+            
+            	<div class="form-group">
+            	<div class="input-group">
+            		<label class="sr-only" for="inlineFormInputGroup">Username</label>
+            		<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+					</div>
+				    <input id="username" type="text" class="form-control" name="user-name" placeholder="Username" autocomplete="username" required>
+				  </div>
+				 </div>
+				 
+				 <div class="form-group">
+				  <div class="input-group">
+				  	<label class="sr-only" for="inlineFormInputGroup">Password</label>
+				    <div class="input-group-prepend">
+						<span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
+					</div>
+				    <input id="password" type="password" class="form-control" name="pass-word" placeholder="Password" autocomplete="current-password" required>
+				  </div>
+  				</div>
+            	
+                <div class="form-group text-right">
+                    <input type="submit" class="btn btn-primary primary-blue" id="submitBtn" value="Login" />
+                </div>
+                <!-- <div class="form-group text-right">
+                    <a href="#" class="ForgetPwd" value="Login" style="font-size: 12px;">Forgot Password?</a>
+                </div> -->
+            }
+        </div>
+    </div>
+</div>
+@if(username.equals("")){
+    <input type="hidden" id="formFlag" name="formFlag" value="@flag">    
+}else{
+    <input type="hidden" id="formFlag" name="formFlag" value="">
+}
+
+        
+@footer("")

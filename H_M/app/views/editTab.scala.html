@@ -1,0 +1,161 @@
+@(param: String)
+
+   <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Tab Name:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="edit-tab-name"
+                       placeholder="Enter Tab Name">
+            </div>
+        </div>
+    </div>
+    
+     <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12  control-label"><b>Display Name:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="edit-tab-display-name"
+                       placeholder="Enter Tab Display Name">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12  control-label"><b>Header:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="edit-tab-header"
+                       placeholder="Enter Tab Header">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Purpose:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="edit-tab-purpose"
+                       placeholder="Enter Tab Purpose">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Choose a Template:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12 ">
+                <select class="form-control" id="edit-tab-template">
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Organization:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="edit-tab-org"
+                       >
+                </select>
+            </div>
+        </div> 
+    </div>
+
+  <!--   <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>OU Specific:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <label class="radio-inline"><input type="radio"
+                                                   name="tab-ou-specific" id="ou_specific_yes"
+                                                   checked=""> Yes</label>
+                <label class="radio-inline"><input type="radio"
+                                                   name="tab-ou-specific" id="ou_specific_no">
+                    No</label>
+            </div>
+        </div>
+    </div> -->
+    
+
+    <div class="form-group accessBasedHide4TabOU">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label" for="tab-org-unit"><b>Select
+                an OU:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="edit-tab-org-unit" class="form-control">
+                </select>
+            </div>
+        </div>
+    </div>
+
+  <!--   <div class="form-group accessBasedHide4TabOU">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Department Specific:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <label class="radio-inline"><input type="radio"
+                                                   name="tab-dep-specific" id="dep_specific_yes"
+                                                   checked="">
+                    Yes</label> <label class="radio-inline"><input type="radio"
+                                                                   name="tab-dep-specific"
+                                                                   id="dep_specific_no">
+                No</label>
+            </div>
+        </div>
+    </div>
+ -->
+    
+    <div class="form-group accessBasedHide4TabDep accessBasedHide4TabOU">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label" for="tab-dep"><b>Select
+                an Department:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="edit-tab-department" class="form-control">
+                </select>
+            </div>
+        </div>
+    </div>
+ 
+ 
+   <!--  <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Select a Role:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="tab-role" class="form-control">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div> -->

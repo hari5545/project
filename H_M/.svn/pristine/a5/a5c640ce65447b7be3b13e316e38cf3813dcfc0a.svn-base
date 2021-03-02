@@ -1,0 +1,10 @@
+@(titleMessage: String)(username: String)(loginFlag:String)
+
+@main(titleMessage)(username) {
+  <h1>Homing Admin Server</h1>
+}
+
+<script type="text/javascript">
+	console.log("LoginFlag: @loginFlag");
+	window.localStorage.setItem("loginFlag", "@loginFlag");
+</script>

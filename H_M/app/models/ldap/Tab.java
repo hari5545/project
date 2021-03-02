@@ -1,0 +1,152 @@
+package models.ldap;
+
+import java.util.ArrayList;
+
+import org.apache.commons.lang3.StringUtils;
+
+public class Tab {
+
+    private String tabId;
+    private String tabName;
+    private String tabDisplayName;
+    private String tabHeader;
+    private String tabPurpose;
+    private String templateName;
+    private String organizationName;
+    private String organizationUnitName;
+    private String departmentName;
+    private ArrayList<String> roleList;
+    private boolean accessAcrossUnits;
+    private boolean accessAcrossDepartments;
+    private String channelId_MM;
+
+    public Tab() {
+    }
+
+    public String getTabDisplayName() {
+        return tabDisplayName;
+    }
+
+    public void setTabDisplayName(String tabDisplayName) {
+        this.tabDisplayName = tabDisplayName;
+    }
+
+    public String getTabId() {
+        return this.tabId;
+    }
+
+    public void setTabId(String tabId) {
+        this.tabId = tabId;
+    }
+
+    public String getTabName() {
+        return tabName;
+    }
+
+    public void setTabName(String tabName) {
+        this.tabName = tabName;
+    }
+
+    public String getTabHeader() {
+        return tabHeader;
+    }
+
+    public void setTabHeader(String tabHeader) {
+        this.tabHeader = tabHeader;
+    }
+
+    public String getTabPurpose() {
+        return tabPurpose;
+    }
+
+    public void setTabPurpose(String tabPurpose) {
+        this.tabPurpose = tabPurpose;
+    }
+
+    public String getTemplateName() {
+        return templateName;
+    }
+
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public String getOrganizationUnitName() {
+        return organizationUnitName;
+    }
+
+    public void setOrganizationUnitName(String organizationUnitName) {
+        this.organizationUnitName = organizationUnitName;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public ArrayList<String> getRoleList() {
+        return this.roleList;
+    }
+
+    public void setRoleList(ArrayList<String> roleList) {
+        if (roleList != null) {
+            this.roleList = roleList;
+        } else {
+            roleList = new ArrayList<String>();
+            this.roleList = roleList;
+        }
+    }
+
+    public String getRoles() {
+        String roles = "";
+        if (roleList != null) {
+            roles = StringUtils.join(roleList, ",");
+        }
+        return roles;
+    }
+
+    public boolean hasAccessAcrossUnits() {
+        return accessAcrossUnits;
+    }
+
+    public void setAccessAcrossUnits(boolean accessAcrossUnits) {
+        this.accessAcrossUnits = accessAcrossUnits;
+    }
+
+    public boolean hasAccessAcrossDepartments() {
+        return accessAcrossDepartments;
+    }
+
+    public void setAccessAcrossDepartments(boolean accessAcrossDepartments) {
+        this.accessAcrossDepartments = accessAcrossDepartments;
+    }
+
+    public String getChannelId_MM() {
+        return this.channelId_MM;
+    }
+
+    public void setChannelId_MM(String channelId_MM) {
+        this.channelId_MM = channelId_MM;
+    }
+
+	@Override
+	public String toString() {
+		return "Tab [tabId=" + tabId + ", tabName=" + tabName + ", tabDisplayName=" + tabDisplayName + ", tabHeader="
+				+ tabHeader + ", tabPurpose=" + tabPurpose + ", templateName=" + templateName + ", organizationName="
+				+ organizationName + ", organizationUnitName=" + organizationUnitName + ", departmentName="
+				+ departmentName + ", roleList=" + roleList + ", accessAcrossUnits=" + accessAcrossUnits
+				+ ", accessAcrossDepartments=" + accessAcrossDepartments + ", channelId_MM=" + channelId_MM + "]";
+	}
+    
+}

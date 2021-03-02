@@ -1,0 +1,439 @@
+@(param: String)
+
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog"
+     aria-labelledby="createModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalTitle">Create Organization</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @modalbody("")
+
+            </div>
+            <div class="modal-footer">
+                <button id="create-btn" data-current-content="" type="button"
+                        class="btn btn-primary secondary-blue">Create
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalTitle">View Organization List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="view-modal-body">
+
+                <h3>No data available</h3>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="assignRole4UserModal" tabindex="-1" role="dialog"
+     aria-labelledby="assignRole4UserModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignRole4UserModalTitle">Assign Role to User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="view-modal-body">
+
+                <div class="row assign-roles-2-users"> <!-- Inner row starts -->
+
+                    <div class="col-md-3 col-lg-3">
+                        <label style="text-align:left;padding-bottom:5px;"
+                               for="selOrgAssignUserRole" class="col-sm-12 control-label"><b>Select
+                            Organization:</b> </label>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <select id="selOrgAssignUserRole" name="selOrgAssignUserRole"
+                                class="form-control"
+                                onchange="loadRolesAvailable4AssignRoles2User('selOrgAssignUserRole');">
+                            <option>--Select--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12" style="margin-top: 10px;"></div>
+
+                    <div class="col-md-3 col-lg-3">
+                        <label style="text-align:left;padding-bottom:5px;" for="searchUser"
+                               class="col-sm-12 control-label"><b>Select User:</b> </label>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <input type="text" class="form-control" value="" id="searchUser"
+                               name="searchUser" placeholder="Type here" required="">
+                    </div>
+
+                    <div class="col-md-12 col-lg-12" style="margin-top: 10px;"></div>
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="d-flex card-header bg-primary secondary-blue text-white ">
+                                <div class="p-2 flex-fill"><b>Assigned Roles</b></div>
+                                <button class="p-2 btn btn-light move-right move-arrows"
+                                        title="Remove Roles">
+                                    Remove <span class="fas fa-minus-circle"
+                                                 area-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="dual-list list-left bg-light">
+
+                                    <ul class="list-group group-assigned">
+                                        <li class="list-group-item list-group-item-info">Please
+                                            select an user
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="d-flex card-header bg-success text-white ">
+                                <button class="p-2 btn btn-light move-left move-arrows"
+                                        title="Assign Roles">
+                                    <span class="fas fa-plus-circle" area-hidden="true"></span>
+                                    Assign
+                                </button>
+                                <div class="p-2 ml-auto"><b>Available Roles</b></div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="dual-list list-right bg-light">
+
+                                    <ul class="list-group group-available">
+                                        <li class="list-group-item list-group-item-info">Please
+                                            wait
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- Inner row ends -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="assignRole4TabModal" tabindex="-1" role="dialog"
+     aria-labelledby="assignRole4TabModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignRole4TabModalTitle">Assign Role to Tab</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="view-modal-body">
+
+                <div class="row assign-roles-2-tabs"> <!-- Inner row starts -->
+
+                    <div class="col-md-4 col-lg-4">
+                        <label style="text-align:left;padding-bottom:5px;"
+                               for="selOrgAssignUserRole" class="col-sm-12 control-label"><b>Select
+                            Organization:</b> </label>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <select id="selOrgAssignTabRole" name="selOrgAssignTabRole"
+                                class="form-control">
+                            <option>--Select--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12" style="margin-top: 10px;"></div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <label style="text-align:left;padding-bottom:5px;"
+                               for="selOrgUnitAssignTabRole" class="col-sm-12 control-label"><b>Select
+                            Organization Unit:</b> </label>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <select id="selOrgUnitAssignTabRole" name="selOrgUnitAssignTabRole"
+                                class="form-control">
+                            <option>--Select--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+              <span class="switch switch-sm">
+                <input type="checkbox" data-toggle="toggle" id="assignRoleTab-include-department"
+                       data-on="Yes" data-off="No" data-size="sm" data-onstyle="success"
+                       data-style="ios">
+                <label for="assignRoleTab-include-department"> Include Department?</label>
+              </span>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12" style="margin-top: 10px;"></div>
+
+
+                    <div class="col-md-4 col-lg-4 dep-specific-block">
+                        <label style="text-align:left;padding-bottom:5px;"
+                               for="selDepartmentAssignTabRole" class="col-sm-12 control-label"><b>Select
+                            Department:</b> </label>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4 dep-specific-block">
+                        <select id="selDepartmentAssignTabRole" name="selDepartmentAssignTabRole"
+                                class="form-control">
+                            <option>--Select--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12" style="margin-top: 10px;"></div>
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="d-flex card-header bg-primary secondary-blue text-white ">
+                                <div class="p-2 flex-fill"><b>Assigned Tabs</b></div>
+                                <button class="p-2 btn btn-light tab-move-right tab-move-arrows"
+                                        title="Remove Tabs">
+                                    Remove <span class="fas fa-minus-circle"
+                                                 area-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="card-body bg-light">
+                                <div class="row">
+                                    <div class="col-md-5 col-lg-5">
+                                        <label style="text-align:left;padding-bottom:5px;"
+                                               for="selRoleAssignTabRole"
+                                               class="col-sm-12 control-label"><b>Select Role:</b>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-7 col-lg-7">
+                                        <select id="selRoleAssignTabRole"
+                                                name="selRoleAssignTabRole" class="form-control">
+                                            <option>--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="dual-list tab-list-left bg-light">
+
+                                    <ul class="list-group tab-group-assigned">
+                                        <li class="list-group-item list-group-item-info">Please
+                                            select a role
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="d-flex card-header bg-success text-white ">
+                                <button class="p-2 btn btn-light tab-move-left tab-move-arrows"
+                                        title="Assign Tabs">
+                                    <span class="fas fa-plus-circle" area-hidden="true"></span>
+                                    Assign
+                                </button>
+                                <div class="p-2 ml-auto"><b>Available Tabs</b></div>
+                            </div>
+
+                            <div class="card-body bg-light">
+                                <div class="ou-specific-block row">
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <label style="text-align:left;padding-bottom:5px;"
+                                               for="selRoleAssignTabRole"
+                                               class="col-sm-12 control-label"><b>OU Specific:</b>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="col-sm-12">
+                                            <label class="radio-inline"><input type="radio"
+                                                                               name="tabAssign-ou-specific"
+                                                                               id="ou_specific_yes"
+                                                                               checked="">
+                                                Yes</label>
+                                            <label class="radio-inline"><input type="radio"
+                                                                               name="tabAssign-ou-specific"
+                                                                               id="ou_specific_no">
+                                                No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row dep-specific-block">
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <label style="text-align:left;padding-bottom:5px;"
+                                               for="selRoleAssignTabRole"
+                                               class="col-sm-12 control-label"><b>Department
+                                            Specific:</b> </label>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="col-sm-12">
+                                            <label class="radio-inline"><input type="radio"
+                                                                               name="tabAssign-dep-specific"
+                                                                               id="dep_specific_yes"
+                                                                               checked="">
+                                                Yes</label>
+                                            <label class="radio-inline"><input type="radio"
+                                                                               name="tabAssign-dep-specific"
+                                                                               id="dep_specific_no">
+                                                No</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="dual-list tab-list-right bg-light">
+
+                                    <ul class="list-group tab-group-available">
+                                        <li class="list-group-item list-group-item-info">Please
+                                            wait
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- Inner row ends -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal  for BoradCast-->
+
+<div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="newsModalTitle">Create News</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                @newsModalBody("")
+            </div>
+
+            <div class="modal-footer">
+                <button id="create-news-btn" data-current-content="create-news" type="button"
+                        class="btn btn-primary secondary-blue">Post
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal  for survey-->
+
+<div class="modal fade" id="createSurveyModal" tabindex="-1" role="dialog"
+     aria-labelledby="surveyModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="surveyModalTitle">Survey</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                @surveyModalBody("")
+            </div>
+
+            <div class="modal-footer">
+                <button id="create-survey-btn" data-current-content="create-survey" type="button"
+                        class="btn btn-primary secondary-blue">save
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editOrgModal" tabindex="-1" role="dialog"
+     aria-labelledby="editOrgModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalTitle">Edit Organization</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label style="text-align: left; padding-bottom: 5px;"
+                                   for="changeHisURL" class="col-sm-12  control-label"><b>HIS URL</b></label>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" value=""
+                                       name="changeHisURL" id="changeHisURL"
+                                       placeholder="Enter HIS URL">
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="selectedOrg" name="selectedOrg" value="">
+
+            </div>
+            <div class="modal-footer">
+                <button id="create-btn" data-current-content="" type="button"
+                        class="btn btn-primary secondary-blue" onclick="updateHisOrg();"><i class="fas fa-edit"></i> Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

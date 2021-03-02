@@ -1,0 +1,69 @@
+@(orgList: ArrayList[String])(roleList: ArrayList[String])(roles: ArrayList[Role])
+
+@import helper._
+
+<div class="row">
+	<div class="col-lg-12">
+  		<label style="text-align:left;padding-bottom:5px;" for="selOrg-OU" class="control-label"><b>Select Organization:</b> </label>
+  	</div>
+	<div class="col-sm-12">
+        <select id="selOrg-Role" name="selOrg-Role" class="form-control" onchange="loadRoles(this);">
+        	@if(orgList.size>0){
+			@for(i <-0 until orgList.size) {
+				<option>@orgList.get(i)</option>
+			}
+		}
+        </select>
+    </div>
+</div>
+<br><br>
+<!-- <div class="table-responsive">
+	<table id="resultTableRoles" class="table table-hover">
+		@if(roleList.size>0){
+			@for(i <-0 until roleList.size) {
+				<tr><td>@roleList.get(i)</td></tr>
+			}
+		}else {
+			<tr><td>No Roles Available</td></tr>
+		}
+	</table>
+</div> -->
+
+<div class="table-responsive">
+	<table id="resultTable" class="table table-sm">
+		@if(roles.size>0){
+			@for(i <-0 until roles.size) {
+				<tr>
+					<td>
+						<div>
+							<table class="table table-borderless table-sm table-hover">
+								<tr class="d-flex">
+									<td class="col-4"><b>Role Name</b></td>
+									<td class="col-8">: @roles.get(i).getRoleName()</td>
+								</tr>
+								<tr class="d-flex">
+									<td class="col-4"><b>Role Type</b></td>
+									<td class="col-8">: @roles.get(i).getRoleType()</td>
+								</tr>
+								<tr class="d-flex">
+									<td class="col-4"><b>Access across other OUs</b></td>
+									<td class="col-8">: @if(roles.get(i).hasAccessAcrossUnits()){Yes}else{No}</td>
+								</tr>
+								@if(roles.get(i).hasAccessAcrossUnits()){}else{<tr class="d-flex">
+									<td class="col-4"><b>Organization Unit</b></td>
+									<td class="col-8">: @roles.get(i).getOrganizationUnitName()</td>
+								</tr>}
+								
+							</table>
+						</div>
+					</td>
+					<!-- <td>
+						<button title="Delete" class="btn btn-light" onclick="deleteTab(this, 'selOrg-Tab', '@@tabList.get(i).getTabName()');"><i class='fas fa-trash'></i></button>
+					</td> -->
+				</tr>
+			}
+		}else{
+			<tr class="table-danger"><td>No Roles Available</td></tr>
+		}
+	</table>
+</div>

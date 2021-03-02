@@ -1,0 +1,366 @@
+package models;
+
+import java.util.Properties;
+import java.util.Enumeration;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.io.UnsupportedEncodingException;
+
+import javax.inject.Inject;
+import com.typesafe.config.Config;
+
+import play.api.Play;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.typesafe.config.Config;
+
+import models.mattermost.*;
+
+import play.mvc.*;
+import play.libs.ws.*;
+
+/**
+*
+* This class is responsible for Mattermost Management
+*
+*/
+
+public class MattermostServiceManager {
+
+	private final Config config;
+
+	private String serverURL;
+	private String serverPORT;
+	private String mm_user;
+	private String mm_pass;
+	private String mm_server_url;
+
+	private String MM_URL;
+
+	private String mmAuthToken;
+
+	//WSAdapter wsAdapter;
+	NetworkAdapter networkAdapter;
+
+	
+    public MattermostServiceManager(Config config) {
+        this.config = config;
+        serverURL = config.getString("mattermost.serverURL");
+		serverPORT = config.getString("mattermost.serverPORT");
+		mm_user = config.getString("mattermost.mm_username");
+		mm_pass = config.getString("mattermost.mm_password");
+		mm_server_url = serverURL + ":" + serverPORT;
+		mmAuthToken = "";
+		//wsAdapter = new WSAdapter();
+		networkAdapter = new NetworkAdapter();
+    }
+
+    public MattermostServiceManager(Config config, String authToken) {
+        this.config = config;
+        serverURL = config.getString("mattermost.serverURL");
+		serverPORT = config.getString("mattermost.serverPORT");
+		mm_user = config.getString("mattermost.mm_username");
+		mm_pass = config.getString("mattermost.mm_password");
+		mm_server_url = serverURL + ":" + serverPORT;
+		//wsAdapter = new WSAdapter();
+		networkAdapter = new NetworkAdapter(authToken);
+		mmAuthToken = authToken;
+    }
+
+    public String getMattermostURL() {
+    	return this.serverURL + ":" + this.serverPORT;
+    }
+
+    public String getURL(String apiUrl) throws URISyntaxException {
+        if(MM_URL == null || MM_URL.equals("")) {
+            MM_URL = mm_server_url;
+        }
+        if (!MM_URL.endsWith("/")) {
+            MM_URL += "/";
+        }
+        return MM_URL + apiUrl;
+    }
+
+    public String doLogin() {
+		String authToken = "";
+
+		try {
+			authToken = networkAdapter.clientLogin(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			authToken = "";
+		}
+		return authToken;
+	}
+
+
+	public String createTeam(String teamName) {
+		String teamId;
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			teamId = networkAdapter.createTeam(getURL(MattermostConstants.CREATE_TEAM_URL), teamName.toLowerCase(), teamName, "I");
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			teamId = "";
+		}
+		return teamId;
+	}
+
+	/*
+	To delete a team permanently
+
+	#curl --location --request DELETE "http://localhost:8065/api/v4/teams/w7swkm9fw78etnfqr9try6wjmh?permanent=true"   --header "Authorization: Bearer 6imnctpw73867mkh5yhpwj4sbe"   --header "Content-Type: application/json"   --header "X-Requested-With: XMLHttpRequest";
+	
+	*/
+
+	public String deleteTeam(String teamId) {
+		String response;
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			response = networkAdapter.deleteTeam(getURL(String.format(MattermostConstants.DELETE_TEAM_URL, teamId)));
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+
+	public String getAuthToken(String c_username, String c_password) {
+		String authToken;
+
+		try {
+			authToken = networkAdapter.clientLogin(getURL(MattermostConstants.USERS_LOGIN_URL), c_username, c_password);
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			authToken = "";
+		}
+		return authToken;
+	}
+
+
+	//Create Channel
+	public String createChannel(String...channelDetails) {
+		String teamId;
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			teamId = networkAdapter.createChannel(getURL(MattermostConstants.CREATE_CHANNEL), channelDetails);
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			teamId = "";
+		}
+		return teamId;
+	}
+
+	//Deleting a channel
+	public String deleteChannel(String channelID) {
+		String response;
+
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			response = networkAdapter.deleteChannel(getURL(String.format(MattermostConstants.DELETE_CHANNEL, channelID)));
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+
+	//Create User
+	public String createUser(String...userDetails) {
+		String teamId;
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			teamId = networkAdapter.createUser(getURL(MattermostConstants.CREATE_USER), userDetails);
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			teamId = "";
+		}
+		return teamId;
+	}
+
+	//Deleting a User - Deactivating a User
+	public String deleteUser(String userId) {
+		String response;
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			response = networkAdapter.deleteUser(getURL(String.format(MattermostConstants.DEACTIVATE_USER, userId)));
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+
+	//Add User into a Team
+	public String addUser2Team(String teamId, String userId) {
+		String teamID = "";
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			teamID = networkAdapter.addUser2Team(getURL(String.format(MattermostConstants.ADD_USER_TO_TEAM, teamId)), teamId, userId);
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			teamID = "";
+		}
+		return teamID;
+	}
+
+	//Remove User from a Team
+	public String removeUserFromTeam(String teamId, String userId) {
+		String response = "";
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			response = networkAdapter.removeUserFromTeam(getURL(String.format(MattermostConstants.DELETE_USER_FROM_TEAM, teamId, userId)));
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+
+	//Add User into a Channel
+	public String addUser2Channel(String channelId, String userId) {
+		String channelID = "";
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			channelID = networkAdapter.addUser2Channel(getURL(String.format(MattermostConstants.ADD_USER_TO_CHANNEL, channelId)), channelId, userId);
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			channelID = "";
+		}
+		return channelID;
+	}
+
+	//Remove User from a Channel
+	public String removeUserFromChannel(String channelId, String userId) {
+		String response = "";
+
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			response = networkAdapter.removeUserFromChannel(getURL(String.format(MattermostConstants.DELETE_USER_FROM_CHANNEL, channelId, userId)));
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+
+	//Validating user access token
+	public String validateUserToken(String userId, String tokenId) {
+		String response;
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			response = networkAdapter.validateUserToken(userId, tokenId, getURL(String.format(MattermostConstants.USERS_ID_URL, userId)));
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+
+	//Get Channel Members
+	public String getChannelMembers(String channelId, String tokenId) {
+		String response;
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+			response = networkAdapter.getChannelMembers(channelId, tokenId, getURL(String.format(MattermostConstants.CHANNEL_MEMBERS, channelId)));
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+
+
+	// send news into channel
+	
+	public String  postChannelMessage(String channelId, String message) {
+		String response="";
+		try {
+			
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);
+						
+			response = networkAdapter.postChannelMessage(getURL(String.format(MattermostConstants.USER_POSTS)),channelId,message);
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+		return response;
+	}
+	
+	
+	
+	// send news into channel
+	
+	public String getTeamStats(String teamId, String broadcastChannelId) {
+		String response="";
+		ArrayList<String> statsList = new ArrayList<String>();
+		try {
+			networkAdapter.login(getURL(MattermostConstants.USERS_LOGIN_URL), mm_user, mm_pass);			
+			response = networkAdapter.getDashboardStatistics(getURL(String.format(MattermostConstants.TEAM_STAT, teamId)));
+			statsList.add(response);
+			response = networkAdapter.getDashboardStatistics(getURL(String.format(MattermostConstants.TEAM_POST_COUNT_DAY, teamId)));
+			statsList.add(response);
+			response = networkAdapter.getDashboardStatistics(getURL(String.format(MattermostConstants.TEAM_POST_COUNT_USER, teamId)));
+			statsList.add(response);
+			response = networkAdapter.getDashboardStatistics(getURL(String.format(MattermostConstants.TEAM_USER_LAST_ACTIVITY_AT, teamId)));
+			statsList.add(response);
+			response = networkAdapter.getDashboardStatistics(getURL(String.format(MattermostConstants.TEAM_USER_CREATE_AT, teamId)));
+			statsList.add(response);
+
+			response = networkAdapter.getBroadcastCount(getURL(String.format(MattermostConstants.USER_POSTS_FOR_CHANNEL, broadcastChannelId)));
+			statsList.add(response);
+
+			response = StringUtils.join(statsList, "###");
+		}
+		catch(Exception exp) {
+			exp.printStackTrace();
+			response = "";
+		}
+
+		return response;
+	}
+
+}

@@ -1,0 +1,37 @@
+@(titleMessage: String)(username: String)
+
+@main(titleMessage)(username) {
+  <h1>Test XML to Object</h1>
+
+  <textarea id="xmlContent" style="width: 100%;height: 10em;"></textarea>
+  <button id="convertJson" onclick="convertToJson();">Change</button>
+  <hr>
+  <textarea id="jsonContent" style="width: 100%;height: 10em;"></textarea>
+
+  <script type="text/javascript">
+  	function convertToJson() {
+  		var xmlContent = $("#xmlContent").val();
+  		console.log(xmlContent);
+  		convert(xmlContent);
+  	}
+
+  	function convert(xmlContent) {
+  		$.ajax({
+	        type: "POST",
+	        url: '/convertJson',
+	        data: {
+	            'xmlString': xmlContent
+	        },
+	        success: function(data, textStatus, jqXHR) {
+	            if (data) {
+	            	console.log(data);
+	            	$("#jsonContent").val(data);
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	
+	        }
+  		});
+  	}
+  </script>
+}

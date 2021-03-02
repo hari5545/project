@@ -1,0 +1,90 @@
+@(surveyList: List[models.dto.SurveyHeaderDto])
+ @import helper._
+
+
+<div class="table-responsive" id="survey-header">
+	<table id="survey-result-table" class="table table-striped table-bordered display nowrap" style="width:100%">
+		<thead id="survey-thead">
+			<tr>
+				<th scope="col">S.NO</th>
+				<th scope="col">OrganizationName</th>
+				<th scope="col">OrganizationUnitName</th>
+				<th scope="col">Channel</th>
+				<th scope="col">StartDate</th>
+				<th scope="col">EndDate</th>
+				<th scope="col">SurveyName</th>
+				<th scope="col">View</th>
+			</tr>
+		</thead>
+		<tbody id="survey-tbody">
+			@if(surveyList.size>0){ @for(i <-0 until surveyList.size) {
+			<tr>
+				<td scope="col">@(i+1)</td>
+				<td scope="col">
+					@if(surveyList.get(i).getOrganizationName().nonEmpty){
+						@surveyList.get(i).getOrganizationName()
+					}else{ - }
+				</td>
+				<td scope="col">
+					@if(surveyList.get(i).getOrganizationUnitName().nonEmpty){
+						@surveyList.get(i).getOrganizationUnitName()
+					}else{ - }
+				</td>
+				<td scope="col">
+					@if(surveyList.get(i).getChannel().nonEmpty){
+						@surveyList.get(i).getChannel()
+					}else{ - }
+				</td>
+				<td scope="col">
+						@surveyList.get(i).getStartDate()
+				</td>
+				<td scope="col">
+						@surveyList.get(i).getEndDate()
+				</td>
+				<td scope="col">
+				<a href="#"  data-toggle="modal" data-target="#editSurveyModal" data-content="edit-Survey" onclick="getSurvey('@surveyList.get(i).getSurveyName()')">@surveyList.get(i).getSurveyName()</a>
+				</td>
+				<td scope="col">
+					<button href="#" data-toggle="modal" data-target="#viewSurveyModal" data-content="view Survey" class="btn btn-sm"
+					onClick="getSurveyResult('@surveyList.get(i).getChannelId()')">
+					<i class="fa fa-desktop" aria-hidden="true"></i>
+				   </button>
+				</td>
+			</tr>
+			} }else{
+			<tr class="table-danger">
+				<td>No survey Available</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var table = $('#survey-result-table').DataTable({
+    	"pagingType": "full_numbers",
+        "scrollCollapse": false,
+		"aLengthMenu": [[10, 50, 100, 500, 1000, -1], [10, 50, 100, 500, 1000, "All"]],
+        "iDisplayLength": 10,
+		 "order": [[ 1, "asc" ]]
+    });
+
+    $('#survey-result-table tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    });
+
+    //$(".dt-buttons span").text('Filter');
+});
+</script>

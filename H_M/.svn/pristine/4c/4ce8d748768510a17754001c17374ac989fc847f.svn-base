@@ -1,0 +1,77 @@
+@(titleMessage: String)(username:String)(FlagString: String)
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+  <head>
+    <title>@titleMessage</title>
+    <link rel="shortcut icon" type="image/png" href='@routes.Assets.versioned("images/favicon.png")'>
+    <link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("stylesheets/bootstrap/bootstrap.min.css")'>
+    <link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("fontawesome/css/all.min.css")'>
+    <link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")'>
+    
+    <script type="text/javascript" src='@routes.Assets.versioned("javascripts/jquery/jquery-3.4.1.min.js")'></script>
+    <script type="text/javascript" src='@routes.Assets.versioned("javascripts/bootstrap/bootstrap.bundle.min.js")'></script>
+
+    <script type="text/javascript" src='@routes.Assets.versioned("javascripts/lib/jsCookie.min.js")'></script>
+    
+    <!-- CDN file for classic ckeditor5 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+    
+    <!-- CDN file for chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <!-- CDN file for xls download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+    <script type="text/javascript" src='@routes.Assets.versioned("javascripts/tableManager.js")'></script>
+      
+    @if(FlagString.equals("login")){
+        <link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("stylesheets/login.css")'>
+        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/jquery/notify.min.js")'></script> 
+        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/login.js")'></script>
+    }
+
+    @if(FlagString.equals("dashboard")){
+    	<link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("stylesheets/jqueryTipCards/tip_cards.css")'>
+    	<link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("stylesheets/dashboard.css")'>
+    	<script type="text/javascript" src='@routes.Assets.versioned("javascripts/jqueryTipCards/jquery.tip_cards.min.js")'></script>
+    }
+    
+    @if(FlagString.equals("toolbox")){
+        <link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("stylesheets/tools.css")'>
+        <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/jquery/jquery-ui.min.css")'>
+        <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/bootstrap-switch/bootstrap4-toggle.min.css")'>
+        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/jquery/jquery-ui.min.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/jquery/notify.min.js")'></script>        
+        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/bootstrap-switch/bootstrap4-toggle.min.js")'></script>        
+        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/tools.js")'></script>
+    }
+    </head>
+
+  <body>
+  	<nav class="navbar navbar-expand-sm bg-info navbar-dark primary-blue fixed-top">
+	  <a class="navbar-brand" href="/">Homing</a>
+	    @if(!username.equals("")){
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/dashboard">Dashboard <i class="fas fa-chart-line"></i></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/tools">Toolbox <i class="fas fa-tools"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reports">Error Logs <i class="fas fa-bug"></i></a>
+                </li>
+              </ul>
+             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">(@username) Logout <i class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+        }
+
+	</nav>
+
+    <div class="container master-container">

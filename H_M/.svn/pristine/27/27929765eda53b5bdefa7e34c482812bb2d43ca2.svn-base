@@ -1,0 +1,21 @@
+db {
+	homing.driver=org.sqlite.JDBC
+	homing.url="jdbc:sqlite:E:\\HomingAdmin\\homing_admin\\conf\\homing.db"	
+	
+	# Provided for JPA access
+  homing.jndiName=DefaultDS
+}
+
+# Point JPA at our database configuration
+jpa.default=defaultPersistenceUnit
+
+# db connections = ((physical_core_count * 2) + effective_spindle_count)
+fixedConnectionPool = 9
+
+database.dispatcher {
+  executor = "thread-pool-executor"
+  throughput = 1
+  thread-pool-executor {
+    fixed-pool-size = ${fixedConnectionPool}
+  }
+}

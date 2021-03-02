@@ -1,0 +1,13 @@
+@(tabList: ArrayList[String])
+
+@import helper._
+
+<div class="table-responsive">
+	<table id="resultTable" class="table table-hover">
+		@if(tabList.size>0){
+			@for(i <-0 until tabList.size) {
+					<tr><td>@tabList.get(i)</td></tr>
+			}
+		}
+	</table>
+</div>

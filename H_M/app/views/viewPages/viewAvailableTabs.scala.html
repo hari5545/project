@@ -1,0 +1,10 @@
+@(tabList: ArrayList[models.ldap.Tab])
+
+@import helper._
+@if(tabList.size()>0){
+	@for(i <-0 until tabList.size) {
+		<li class="list-group-item li-item list-group-item-success">@tabList.get(i).getTabName()</li>
+	}
+}else{
+	<li class="list-group-item list-group-item-danger">No Tabs Available</li>
+} 

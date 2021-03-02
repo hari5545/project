@@ -1,0 +1,37 @@
+1. Tables display and components
+	Dynamic
+	Inside buttons
+	Inside gifs
+	Inside images
+2. Filtered search
+3. Inputs
+4. Calendar Inputs
+
+
+
+{"id":"c5b67nrb6brfxcapn3f7xcm6qr","create_at":1561972119130,"update_at":1561972119130,"edit_at":0,"delete_at":0,"is_pinned":false,"user_id":"6cujdhiboir13fx5qnue8ztnqr","channel_id":"3ziec3bg9ighummjxfeicffqoe","root_id":"","parent_id":"","original_id":"","message":"sakthi.ksg joined the team.","type":"system_join_team","props":{"username":"sakthi.ksg"},"hashtags":"","pending_post_id":"","metadata":{}}
+
+{\"id\":\"woe1p64b9jfg5bdujtbxa6ntfw\",\"create_at\":1564579640253,\"update_at\":1564579640633,\"edit_at\":0,\"delete_at\":0,\"is_pinned\":false,\"user_id\":\"6cujdhiboir13fx5qnue8ztnqr\",\"channel_id\":\"3ziec3bg9ighummjxfeicffqoe\",\"root_id\":\"\",\"parent_id\":\"\",\"original_id\":\"\",\"message\":\"test\",\"type\":\"\",\"props\":{},\"hashtags\":\"\",\"pending_post_id\":\"\",\"metadata\":{}}
+
+
+
+
+Homing - Theraphy + Plus
+-----------------------------------------------------------------------
+1. Implementation of the basic group chatting and one-to-one chatting in client - for Internal Use
+2. Integration of the chat with LDAP and adding other channels (News, References, Broadcast)
+3. Integration of Homing with HIS APIs.
+
+
+PWA:
+-----------------------------------------------------------------------
+1. Finalising the UI elements with standard templates across RHES current information architecture
+2. Feasibility testing for API call/Native call from Angular
+3. Once the call is finalised, implemtation of the same throughout the RHIS.
+
+
+
+PWA
+
+1. Finalise UI elements with standard templates across RHES present information architecture and the process flows which will be completely integrated with present RHES business logic.
+2. 

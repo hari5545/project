@@ -1,0 +1,790 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+### NoDocs ###
+GET     /                           		controllers.HomeController.index
+
+### NoDocs ###
+GET     /tools                          	controllers.HomeController.tools
+
+### NoDocs ###
+GET     /dashboard                          controllers.HomeController.dashboard
+
+### NoDocs ###
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               	controllers.Assets.versioned(path="/public", file: Asset)
+
+### NoDocs ###
+GET        /docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
+
+### NoDocs ###
+GET        /docs/swagger                     controllers.LoginController.home
+
+# Stats routes ------------------------------------------------------------------------------
+
+### NoDocs ###
+GET 	/teamStats 							controllers.HomeController.teamStats(teamId:String, teamName:String)
+
+# LDAP routes -------------------------------------------------------------------------------
+
+### NoDocs ###
+GET		/createOrganization 				controllers.LDAPController.createOrganization
+
+### NoDocs ###
+GET		/getOrganizationList 				controllers.LDAPController.getOrganizationList
+
+### NoDocs ###
+GET		/getTeams 							controllers.LDAPController.getTeams
+
+### NoDocs ###
+GET		/createOrganizationUnit				controllers.LDAPController.createOrganizationUnit
+
+### NoDocs ###
+GET		/getOrganizationUnitList 			controllers.LDAPController.getOrganizationUnitList
+
+### NoDocs ###
+GET		/createDepartment					controllers.LDAPController.createDepartment
+
+### NoDocs ###
+GET		/getDepartmentList		 			controllers.LDAPController.getDepartmentList
+
+### NoDocs ###
+GET 	/createRole 						controllers.LDAPController.createRole
+
+### NoDocs ###
+GET		/getRoleList			 			controllers.LDAPController.getRoleList
+
+### NoDocs ###
+GET 	/createTabTemplate					controllers.LDAPController.createTabTemplate
+
+### NoDocs ###
+GET		/getTabTemplateList			 		controllers.LDAPController.getTabTemplateList
+
+### NoDocs ###
+GET 	/createTab 							controllers.LDAPController.createTab
+
+### NoDocs ###
+GET		/getTabList 				 		controllers.LDAPController.getTabList
+
+### NoDocs ###
+GET 	/getTabs 							controllers.LDAPController.getTabs
+
+### NoDocs ###
+GET 	/addRoles4Tab						controllers.LDAPController.addRoles4Tab
+
+### NoDocs ###
+GET 	/removeRoles4Tab					controllers.LDAPController.removeRoles4Tab
+
+### NoDocs ###
+GET 	/deleteTab							controllers.LDAPController.deleteTab
+
+### NoDocs ###
+GET 	/getTabsBasedOnOU					controllers.LDAPController.getTabsBasedOnOU
+
+### NoDocs ###
+GET 	/createUser 						controllers.LDAPController.createUser
+
+### NoDocs ###
+GET		/getUserList			 			controllers.LDAPController.getUserList
+
+### NoDocs ###
+GET 	/searchUsers 						controllers.LDAPController.searchUsers
+
+### NoDocs ###
+GET 	/getUserRoles 						controllers.LDAPController.getUserRoles
+
+### NoDocs ###
+GET 	/addRoles4User						controllers.LDAPController.addRoles4User
+
+### NoDocs ###
+GET 	/removeRoles4User					controllers.LDAPController.removeRoles4User
+
+### NoDocs ###
+DELETE 	/deleteUser							controllers.LDAPController.deleteUser
+
+### NoDocs ###
++nocsrf
+POST	/createNews							controllers.LDAPController.createNews
+
+### NoDocs ###
++nocsrf
+POST	/createSurvey						controllers.DBController.createSurvey
+
+### NoDocs ###
++nocsrf
+POST	/updateSurvey						controllers.DBController.updateSurvey
+
+### NoDocs ###
+GET		/getSurvey							controllers.DBController.getSurveyList
+
+### NoDocs ###
+GET 	/getSurveyDetails					controllers.DBController.getSurveyDetailsList(surveyName:String)
+
+### NoDocs ###
++nocsrf
+POST	/translate							controllers.HomeController.translate
+
+#LDAPMANGER API's---------------------------------------------------------------------------------------------
+
+###
+#  summary: Create new Organization in LDAP and Team in Mattermost
+#  operationId: createOrg
+#  consumes:
+#    - "application/json"
+#  produces:
+#    - "application/json"
+#  parameters:
+#    - in: "body"
+#      name: "body"
+#      description: "organization name that needs to be added to the store"
+#      required: true
+#      schema:
+#        $ref: '#/definitions/models.dto.OrganizationDto'
+#  responses:
+#    400:
+#      description: Invalid input
+#    200:
+#      description: "Success"
+#      schema:
+#        type: "application/json"
+#        $ref: '#/definitions/models.dto.ResponseDto'
+###
++nocsrf
+POST	/createOrg								controllers.LDAPManager.createOrganization
+
+###
+ #  summary: Get orgList using flag
+ #  operationId: GetOrg
+ #  responses:
+ #    200:
+ #      description: success
+ #    400:
+ #      description: no organization available.
+###
+GET		/getOrgList								controllers.LDAPManager.getOrganizationList(displayFlag:String)
+
+
+###
+ #     summary: create new Organization unit in LDAP and MM
+ #     operationId: create new OrgUnit
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "OrganizationUnitDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.OrganizationUnitDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/createOrgUnit								controllers.LDAPManager.createOrganizationUnit
+
+
+###
+#  summary: Get orgUnitList using orgName and flag
+#  operationId: GetOrgUnit
+#  responses:
+#    200:
+#      description: success
+#    400:
+#      description: no orgUnit available.
+###
+GET		/getOrgUnitList								controllers.LDAPManager.getOrganizationUnitList(displayFlag:String,orgName:String)
+
+
+###
+ #     summary: create new Department in LDAP and MM
+ #     operationId: create new Department
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "DepartmentDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.DepartmentDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/createDept								controllers.LDAPManager.createDepartment
+
+
+###
+ #  summary: Get Departments  using orgName,orgUnitName and flag
+ #  operationId: Get Departments
+ #  responses:
+ #    200:
+ #		description: success
+ #    400:
+ #		description: no departments available.
+GET		/getDept								controllers.LDAPManager.getDepartmentList(displayFlag:String,orgName:String,orgUnitName:String)
+
+
+
+###
+ #     summary: create new Role in LDAP and MM
+ #     operationId: create new Role
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "RoleDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.RoleDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/createRoles							controllers.LDAPManager.createRole
+
+###
+ #  summary: Get Roles  using orgName and flag
+ #  operationId: Get Roles
+ #  responses:
+ #    200:
+ #      description: success
+ #    400:
+ #		description: No Roles available.
+GET		/getRoles								controllers.LDAPManager.getRoleList(displayFlag:String,orgName:String)
+
+###
+ #     summary: create new User in LDAP and MM
+ #     operationId: create user
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "userDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.UserDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/createUsers							controllers.LDAPManager.createUser
+
+###
+ #  summary: Get users using orgName and flag
+ #  operationId: Get Users
+ #  responses:
+ #    200:
+ #      description: success
+ # 	  400:
+ #		description: No Users available.
+GET		/getUsers							controllers.LDAPManager.getUserList(displayFlag:String,orgName:String)
+
+###
+ #     summary: create new TabTemplate in LDAP and MM
+ #     operationId: Create TabTemplate
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "TabTemplateDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.TabTemplateDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/createTabTemp							controllers.LDAPManager.createTabTemplate
+
+###
+ #  summary: Get TabTemplates using orgName and flag
+ #  operationId: GetTabTemplates
+ #  responses:
+ #    200:
+ #      description: success
+ #    400:
+ #      description: No TabTemplates available .
+GET     /getTabTempaltes				controllers.LDAPManager.getTabTemplateList(displayFlag:String,orgName:String)
+
+
+###
+ #     summary: create new Tab in LDAP and MM
+ #     operationId: Create Tab
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "TabDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.TabDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/createTabs							controllers.LDAPManager.createTab
+
+
+###
+ #  summary: Get Tab using orgName and flag
+ #  operationId: GetTabs
+ #  responses:
+ #    200:
+ #	    description: success
+ #    400:
+ #	    description: No Tabs available .
+GET     /getTabsList				controllers.LDAPManager.getTabList(displayFlag:String,orgName:String)
+
+
+###
+ #  summary: search User using name and orgName and listSize 
+ #  operationId: User search
+ #  responses:
+ #    200:
+ #	    description: success
+ #    400:
+ #	    description: No user found .
+GET		/searchUsers			controllers.LDAPManager.searchUsers(searchTerm:String,orgName:String,listSize:String)
+
+###
+ #  summary: Get Tab All Tabs using orgName and flag
+ #  operationId: "getAllTabs"
+ #  produces:
+ #    application/json
+ #  responses:
+ #    200:
+ #	    description: success
+ #    400:
+ #	    description: No Tabs available .
+GET     /getAllTabs				controllers.LDAPManager.getTabs
+
+
+###
+ #  summary: Get OU specific  Tabs 
+ #  operationId: "getTabs"
+ #  produces:
+ #    application/json
+ #  responses:
+ #    200:
+ #	    description: success
+ #    400:
+ #	    description: No Tabs available .
+GET		/getTabsBasedOnOu		controllers.LDAPManager.getTabsBasedOnOU(orgName:String,orgUnit:String,has_all_ou_access:String,displayFlag:String,tabType:String)
+
+###
+ #  summary: get users having roles using orgName and userName and flag
+ #  responses:
+ #	  200:
+ #		description: success
+ # 	  400:
+ #		description: No Tabs available .
+GET		/getUserRolesList		controllers.LDAPManager.getUserRoles(displayFlag:String,orgName:String,userName:String)
+
+
+###
+ #     summary: assign roles to user in MM
+ #     operationId: assign roles
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST	/addRoles2User			controllers.LDAPManager.addRoles4User(orgName:String,userName:String,roles:String)
+
+###
+ #     summary: remove roles to user in MM
+ #     operationId: remove roles
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ #		 404:
+ #         description: not found
+ ###
+DELETE	/removeRole2User 		controllers.LDAPManager.removeRoles4User(orgName:String,userName:String,roles:String)
+
+###
+ #     summary: remove  user in MM
+ #     operationId: delete user
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ #		 404:
+ #         description: not found
+ ###
+DELETE	/deleteUser				controllers.LDAPManager.deleteUser(orgName:String,userName:String)
+
+
+###
+ #     summary: assign roles to user in MM
+ #     operationId: assign roles
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST		/addRoles2Tab				controllers.LDAPManager.addRoles4Tab(orgName:String,roleName:String,tabs:String)
+
+###
+ #     summary: remove  role to Tab in MM
+ #     operationId: remove role
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ #		 404:
+ #         description: not found
+ ###
+DELETE		/deleteRole2Tab				controllers.LDAPManager.removeRoles4Tab(orgName:String,roleName:String,tabs:String)
+
+
+###
+ #     summary: delete Tab in MM
+ #     operationId: delete Tab
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ #		 404:
+ #         description: not found
+ ###
+DELETE		/deleteTabs					controllers.LDAPManager.deleteTab(orgName:String,tabName:String)
+
+
+###
+ #  summary: get authorize tabs using userName userId userOrganization userAuthToken
+ #  responses:
+ #	  200:
+ #		description: success
+ # 	  400:
+ #		description: No Tabs available .
+GET			/getAuthorizeTabs			controllers.LDAPManager.getAuthorizedTabs(userOrganization:String, userName:String, userId:String, userAuthToken:String)
+
+
+###
+ #  summary: get channel members using userName userId userOrganization userAuthToken and channelId
+ #  responses:
+ #	  200:
+ #		description: success
+ # 	  400:
+ #		description: No Tabs available .
+GET			/getChannelMember			controllers.LDAPManager.getChannelMembers(userName:String,userOrganization:String,userId:String,channelId:String,userAuthToken:String)
+
+
+###
+ #     summary: Add a news into MM
+ #     operationId: add news
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "NewsDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.NewsDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/createNew				controllers.LDAPManager.createNews
+
+
+#End points or API'S------------------------------------------------------------------------------------------
+
+###
+ #  summary: Get SurveyDetails based on channel Id
+ #  responses:
+ #    200:
+ #      description: success
+ # 	  400:
+ #		description: no records on this channel.
+###
+GET     /survey							    controllers.HomingController.getSurveyDetailsBasedOnChannelId(channelId:String)
+
+
+###
+ #     summary: Add a new survey results to the store
+ #     operationId: add Survey Results
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "survey results object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: "#/definitions/models.entity.SurveyResult"
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST	/surveyResult						controllers.HomingController.createSurveyResults	
+
+
+###
+ #     summary: create new tab in MM
+ #     operationId: "create tab"
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "TabDto object that needs to be added to the MM"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.TabDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+###
++nocsrf
+POST	/createTab							controllers.HomingController.createTab
+
+###
+ #     summary: create new users in MM and assign user into channel
+ #     operationId: "create users"
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "UsersDtos object that needs to be added to the MM"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.ldap.UsersDtos'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+###
++nocsrf
+POST	/createUsers						controllers.HomingController.createUsers
+
+
+
+#Error Reporting APIs
+### NoDocs ###
++nocsrf
+POST	/report						        controllers.HomingController.reportError(request: Request)
+
+### NoDocs ###
+GET     /reports                            controllers.DBController.getErrorReports()
+				
+# Login routes ----------------------------------------------------------------------------------------
+
+### NoDocs ###
+GET 	/login								controllers.LoginController.login
+
+### NoDocs ###
++nocsrf
+POST 	/authenticate						controllers.LoginController.authenticate
+
+### NoDocs ###
+GET 	/logout								controllers.LoginController.logout
+
+
+# Organization Admin Login and authentication ----------------------------------------------------
+
+### NoDocs ###
+POST 	/authenticateUser 					controllers.LoginController.authenticateUser
+
+
+# Client Routes ----------------------------------------------------------------------------------
+
+### NoDocs ###
++nocsrf
+POST 	/authenticateClient 				controllers.LoginController.authenticateClientUser
+
+### NoDocs ###
++nocsrf
+POST 	/getAuthorizedTabs 					controllers.LDAPController.getAuthorizedTabs
+
+### NoDocs ###
++nocsrf
+POST 	/getChannelMembers 					controllers.LDAPController.getChannelMembers
+
+
+### NoDocs ###
++nocsrf
+POST 	/importOrganization					controllers.HomeController.importOrganization(request: Request)
+
+### NoDocs ###
+GET 	/getHisUrl 							controllers.LDAPController.getHisUrl(orgName: String)
+
+### NoDocs ###
++nocsrf
+PUT 	/updateHisUrl 						controllers.LDAPController.updateHisUrl(request: Request)
+
+### NoDocs ###
+GET 	/checkServerStatus 					controllers.HomingController.isServerRunning
+
+
+### NoDocs ###
++nocsrf
+POST 	/getMetamapValues 					controllers.HomeController.getMetamapValues(request: Request)
+
+
+###
+ #     summary: Add a news into MM
+ #     operationId: add news
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "NewsDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.NewsDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST 	/api/createNew				controllers.LDAPManager.createNews
+
+
+###
+ #     summary: create new survey in db
+ #     operationId: create survey
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "SurveyDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.SurveyDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+POST	/api/createSurvey						controllers.DBController.createSurvey
+
+###
+#  summary: get all surveys
+#  operationId: GetSurveys
+#  responses:
+#    200:
+#      description: success
+#    400:
+#      description: No surveys Found .
+###
+GET	   /api/getSurvey 				controllers.DBController.getSurveyList
+
+###
+#  summary: get survey details based on survey name
+#  operationId: GetSurveyDetails
+#  responses:
+#    200:
+#      description: success
+#    400:
+#      description: Not Found .
+###
+GET	   /api/getSurveyDetails 					controllers.DBController.getSurveyDetailsList(surveyName:String)
+
+###
+ #     summary: update survey in db
+ #     operationId: UpdateSurvey
+ #     consumes:
+ #     - "application/json"
+ #     produces:
+ #     - "application/json"
+ #     parameters:
+ #     - in: "body"
+ #       name: "body"
+ #       description: "SurveyDto object that needs to be added to the store"
+ #       required: true
+ #       schema:
+ #         $ref: '#/definitions/models.dto.SurveyDto'
+ #     responses:
+ #       400:
+ #         description: Invalid input
+ ###
++nocsrf
+PUT		/api/updateSurvey						controllers.DBController.updateSurvey
+
+###
+#  summary: get SurveyResults
+#  operationId: GetSurveyResults
+#  responses:
+#    200:
+#      description: success
+#    400:
+#      description: Not Found .
+###
+GET	   /api/getSurveyResults					controllers.DBController.getSurveyResultList(channelId:String)
+
+###
+#  summary: get SurveyResults for except rating question
+#  operationId: GetSurveyResults
+#  responses:
+#    200:
+#      description: success
+#    400:
+#      description: Not Found .
+###
+GET	   /api/getSurveyResultsWithoutRatingQuestions		controllers.DBController.getSurveyResultsWithoutRatingQuestions(channelId:String)
+
+
+#Test---------------------------------------------------------------------------------------------
+
+### NoDocs ###
+#GET     /test                          	controllers.HomeController.test
+
+### NoDocs ###
+#+ nocsrf
+#POST 	/convertJson						controllers.HomeController.convertJson
+
+
+# Map static resources from the /public folder to the /assets URL path
+#GET     /assets/*file               	controllers.Assets.versioned(path="/public", file: Asset)
+
+
+

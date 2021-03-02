@@ -1,0 +1,340 @@
+@(titleMessage: String)(username: String)(userRole: String)(userOrg: String)
+
+@header(titleMessage)(username)("toolbox")
+
+<h1 class="text-center">Toolbox</h1>
+
+<div class="container">
+    <div class="row">
+        @if(userRole.equals("superadmin")){
+        <div class="col-lg-3 privileged">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/organization.png"
+                             class="icon-image rounded mx-auto d-block" alt="Organization">
+                        <div class="card-title">
+                            <h2>ORGANIZATION</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="createOrg" class="btn" title="Create"
+                                    data-modal-title="Create Organization"
+                                    data-content="create-organization" data-toggle="modal"
+                                    data-target="#createModal">
+                                <b>Create</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+                            <button id="viewOrg" class="btn" title="View"
+                                    data-modal-title="View Organization List"
+                                    data-content="view-organization-list" data-toggle="modal"
+                                    data-target="#viewModal">
+                                <b>View</b> <img src="assets/images/tools/display.png" alt="View">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        }
+
+        <div class="col-lg-3">
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/organizationunit.png"
+                             class="icon-image rounded mx-auto d-block" alt="Organization">
+                        <div class="card-title">
+                            <h2>ORGANIZATION UNIT</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="createOrgUnit" class="btn" title="Create"
+                                    data-modal-title="Create Organization Unit"
+                                    data-content="create-organization-unit" data-toggle="modal"
+                                    data-target="#createModal">
+                                <b>Create</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+                            <button id="viewOrgUnit" class="btn" title="View"
+                                    data-modal-title="View Organization Unit List"
+                                    data-content="view-organization-unit-list" data-toggle="modal"
+                                    data-target="#viewModal">
+                                <b>View</b> <img src="assets/images/tools/display.png"
+                                                 alt="Display">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/department.png"
+                             class="icon-image rounded mx-auto d-block" alt="Organization">
+                        <div class="card-title">
+                            <h2>DEPARTMENT</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="createDepartment" class="btn" title="Create"
+                                    data-modal-title="Create Department"
+                                    data-content="create-department" data-toggle="modal"
+                                    data-target="#createModal">
+                                <b>Create</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+                            <button id="viewDep" class="btn" title="View"
+                                    data-modal-title="View Department List"
+                                    data-content="view-department-list" data-toggle="modal"
+                                    data-target="#viewModal">
+                                <b>View</b> <img src="assets/images/tools/display.png"
+                                                 alt="Display">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/roles.png"
+                             class="icon-image rounded mx-auto d-block" alt="Organization">
+                        <div class="card-title">
+                            <h2>ROLE</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="createRole" class="btn" title="Create"
+                                    data-modal-title="Create Role" data-content="create-role"
+                                    data-toggle="modal" data-target="#createModal">
+                                <b>Create</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+                            <button id="viewRoles" class="btn" title="View"
+                                    data-modal-title="View Role List" data-content="view-role-list"
+                                    data-toggle="modal" data-target="#viewModal">
+                                <b>View</b> <img src="assets/images/tools/display.png"
+                                                 alt="Display">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- </div>
+
+        <div class="row mt-3"> -->
+
+
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/tabs.png"
+                             class="icon-image rounded mx-auto d-block" alt="Organization">
+                        <div class="card-title">
+                            <h2>TABS</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="createTab" class="btn" title="Create"
+                                    data-modal-title="Create Tab" data-content="create-tab"
+                                    data-toggle="modal" data-target="#createModal">
+                                <b>Create</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+
+                            <button id="viewTabs" class="btn" title="View"
+                                    data-modal-title="View Tab List" data-content="view-tab-list"
+                                    data-toggle="modal" data-target="#viewModal">
+                                <b>View</b> <img src="assets/images/tools/display.png"
+                                                 alt="Display">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/associateroles.png"
+                             class="icon-image rounded mx-auto d-block" alt="Organization">
+                        <div class="card-title">
+                            <h2>ASSIGN ROLES TO TABS</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+
+                            <button id="assignRole4Tab" class="btn" title="Assign"
+                                    data-modal-title="Assign Role to Tab"
+                                    data-content="assign-role-to-tab" data-toggle="modal"
+                                    data-target="#assignRole4TabModal">
+                                <b>Assign</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/users.png"
+                             class="icon-image rounded mx-auto d-block" alt="Organization">
+                        <div class="card-title">
+                            <h2>USERS</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="createUser" class="btn" title="Create"
+                                    data-modal-title="Create User" data-content="create-user"
+                                    data-toggle="modal" data-target="#createModal">
+                                <b>Create</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+                            <button id="viewUsers" class="btn" title="View"
+                                    data-modal-title="View User List" data-content="view-user-list"
+                                    data-toggle="modal" data-target="#viewModal">
+                                <b>View</b> <img src="assets/images/tools/display.png"
+                                                 alt="Display">
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/multiplerole.png"
+                             class="icon-image icon-image-role rounded mx-auto d-block"
+                             alt="Organization">
+                        <div class="card-title">
+                            <h2>ASSIGN ROLES TO USERS</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="assignRoles4Users" class="btn" title="Assign"
+                                    data-modal-title="Assign Role to User"
+                                    data-content="assign-role-to-user" data-toggle="modal"
+                                    data-target="#assignRole4UserModal">
+                                <b>Assign</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Broadcast  -->
+
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/broadcastlarge.png"
+                             class="icon-image rounded mx-auto d-block" alt="boardcast">
+                        <div class="card-title">
+                            <h2>Broadcast</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+                            <button id="news" class="btn" title="News"
+                                    data-modal-title="Create News" data-content="create-news"
+                                    data-toggle="modal" data-target="#newsModal">
+                                <b>News</b> <img src="assets/images/tools/create.png" alt="Create">
+                            </button>
+                            <button id="reference" class="btn" title="Reference"
+                                    data-modal-title="Create Reference"
+                                    data-content="create-reference" data-toggle="modal"
+                                    data-target="#referenceModal">
+                                <b>Reference</b> <img src="assets/images/tools/create.png"
+                                                      alt="Create">
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- survey boat -->
+
+        <div class="col-lg-3">
+
+            <div class="card-box shadow-sm">
+                <div class="row">
+                    <div class="col-lg-12 inner-col">
+                        <img src="assets/images/tools/managetemplate.png"
+                             class="icon-image rounded mx-auto d-block" alt="survey">
+                        <div class="card-title">
+                            <h2>Survey</h2>
+                            <hr>
+                        </div>
+                        <div class="mx-auto text-center">
+
+                            <button id="survey" class="btn" title="create"
+                                    data-modal-title="Create-Survey" data-content="create-survey"
+                                    data-toggle="modal" data-target="#createSurveyModal">
+                                <b>Create</b> <img src="assets/images/tools/create.png"
+                                                   alt="Create">
+                            </button>
+                            <button id="viewSurveyDetails" class="btn" title="View"
+                                    data-modal-title="View Survey List"
+                                    data-content="view-survey-list" data-toggle="modal"
+                                    data-target="#viewModal">
+                                <b>View</b> <img src="assets/images/tools/display.png"
+                                                 alt="Display">
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<input type="hidden" id="logged-user-role" name="logged-user-role" value="@userRole">
+<input type="hidden" id="logged-user-org" name="logged-user-org" value="@userOrg">
+<input type="hidden" id="page" name="page" value="tools">
+
+@modals("")
+
+@footer("")

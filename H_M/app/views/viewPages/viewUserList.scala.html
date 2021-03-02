@@ -1,0 +1,207 @@
+@(orgList: ArrayList[String])(userList: ArrayList[models.ldap.User])
+
+@import helper._
+
+
+<style type="text/css">
+
+    td.details-control {
+        background: url('@routes.Assets.versioned("datatables/details_open.png")') no-repeat center center;
+        cursor: pointer;
+    }
+    tr.shown td.details-control {
+        background: url('@routes.Assets.versioned("datatables/details_close.png")') no-repeat center center;
+    }
+.wrapper {
+       
+    
+    }
+</style> 
+
+<div class="row">
+	<div class="col-lg-12">
+  		<label style="text-align:left;padding-bottom:5px;" for="selOrg-User" class="control-label"><b>Select Organization:</b> </label>
+  	</div>
+	<div class="col-sm-12">
+        <select id="selOrg-User" name="selOrg-User" class="form-control" onchange="loadUsers(this, 'page');">
+        	@if(orgList.size>0){
+			@for(i <-0 until orgList.size) {
+				<option>@orgList.get(i)</option>
+			}
+		}
+        </select>
+    </div>
+</div>
+<br><br>
+
+<div class="customContainer">
+<div class="table-responsive">
+	<table id="user-result-table" class="table table-striped table-bordered display nowrap" style="width:100%">
+					<thead id="user-thead">
+						<tr>
+							<th scope="col"></th>
+						    <th scope="col">S.No</th>
+							<th scope="col">Display Name</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Username</th>
+							<th scope="col">Email</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Department</th>
+							<th scope="col">Organization Unit</th>
+							<th scope="col">Role</th>
+							<th scope="col">Access All OUs</th>
+							<th scope="col">Access All Departments</th> 
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody id="user-tbody">
+                    @if(userList.size>0){
+						@for(i <-0 until userList.size) {
+						<tr>
+							<td scope="row"></td>
+						    <td scope="row">@(i+1)</td>
+							<td scope="row">
+								@if(userList.get(i).getDisplayName().nonEmpty){
+									@userList.get(i).getDisplayName()
+								}else{ - }
+							</td>
+							<td scope="row">
+								<div class="wrapper">
+									@if(userList.get(i).getGender().nonEmpty){
+										@Html(userList.get(i).getGender())
+									}else{ - }
+								</div>
+							</td>
+							<td scope="row">
+								@if(userList.get(i).getUsername().nonEmpty){
+									@userList.get(i).getUsername()
+							    }else{ - }
+							</td>
+							<td scope="row">
+								@if(userList.get(i).getEmail().nonEmpty){
+									@userList.get(i).getEmail()
+								}else{ - }
+							</td>
+							<td scope="row">
+								@if(userList.get(i).getEmployeeId().nonEmpty){
+									@userList.get(i).getEmployeeId()
+								}else{ - }
+							</td>
+							<td scope="row">
+								<div class="wrapper">
+									@if(userList.get(i).getDepartment().nonEmpty){
+										@Html(userList.get(i).getDepartment())
+									}else{ - }
+							    </div>
+							</td>
+							<td scope="row">
+								<div class="wrapper">
+									@if(userList.get(i).getOrganizationUnit().nonEmpty){
+										@Html(userList.get(i).getOrganizationUnit())
+									}else{ - }
+								</div>
+							</td>
+							<td scope="row">
+								@if(userList.get(i).getRoles().nonEmpty){
+									@for(roles <- userList.get(i).getRoles().split(",")) {
+  					     				<p>@roles</p>
+									}
+								}else{ - }
+							</td>
+							<td scope="row">
+								<div class="wrapper">
+									@if(userList.get(i).hasOuAccess()){Yes}else{No}
+								</div>
+							</td>
+							<td scope="col">
+								<div class="wrapper">
+									@if(userList.get(i).hasUniversalAccess()){Yes}else{No}
+								</div>
+							</td>
+							
+							<td>
+					    		<button class="btn"  data-toggle="modal" data-target="#editUserModal" data-content="Edit User" onclick="editUser('selOrg-User', '@userList.get(i).getUsername()'); "><i class="fas fa-xs fa-edit"></i></button>
+								<button title="Delete" class="btn" onclick="deleteUser(this, 'selOrg-User', '@userList.get(i).getUsername()');"><i class='fas fa-xs fa-trash'></i></button>
+					        </td>
+						</tr>
+						}
+					}else{
+					<tr class="table-danger"><td>No Users Available</td></tr>
+					}
+				</tbody>
+	</table>
+</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+	/* Formatting function for row details - modify as you need */
+	function format ( d ) {
+	    // `d` is the original data object for the row
+	    return '<table cellspacing="0"  cellpadding="100px" border="0">'+
+	        '<tr>'+
+	            '<th> Gender:</th>'+
+	            '<td>'+d[3]+'</td>'+
+	        '</tr>'+
+	    	'<tr>'+
+	            '<th>Department:</th>'+
+	            '<td>'+d[7]+'</td>'+
+	        '</tr>'+
+	        '<tr>'+
+	            '<th>Organization Unit:</th>'+
+	            '<td>'+d[8]+'</td>'+
+	        '</tr>'+
+	        '<tr>'+
+	            '<th>Access All OUs:</th>'+
+	            '<td>'+d[10]+'</td>'+
+	        '</tr>'+
+	        '<tr>'+
+	            '<th>Access All Departments:</th>'+
+	            '<td>'+d[11]+'</td>'+
+	        '</tr>'+
+	    '</table>';
+	}
+	
+
+
+    var table = $('#user-result-table').DataTable({
+    	"pagingType": "full_numbers",
+        "scrollCollapse": false,
+		"aLengthMenu": [[5,10, 50, 100, 500, 1000, -1], [5,10, 50, 100, 500, 1000, "All"]],
+        "iDisplayLength": 10,
+        "columnDefs":[
+        	{ "visible": false, "targets":3 },
+        	{ "visible": false, "targets":7 },
+        	{ "visible": false, "targets":8 },
+        	{ "visible": false, "targets":10 },
+        	{ "visible": false, "targets":11 },
+        	{
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": '',
+                "targets": 0
+            },
+        ],
+		 "order": [[ 1, "asc" ]]
+    });
+
+
+    $('#user-result-table tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    });
+
+});
+</script>

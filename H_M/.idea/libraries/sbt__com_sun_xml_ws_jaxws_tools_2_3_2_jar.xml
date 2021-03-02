@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.sun.xml.ws:jaxws-tools:2.3.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.sun.xml.ws/jaxws-tools/jars/jaxws-tools-2.3.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.sun.xml.ws/jaxws-tools/srcs/jaxws-tools-2.3.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

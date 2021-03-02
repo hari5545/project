@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.sun.xml.stream.buffer:streambuffer:1.5.7:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.sun.xml.stream.buffer/streambuffer/jars/streambuffer-1.5.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.sun.xml.stream.buffer/streambuffer/srcs/streambuffer-1.5.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

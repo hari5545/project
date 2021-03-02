@@ -1,0 +1,971 @@
+@(param: String) @import helper._
+
+<div id="create-organization" class="modal-content-inside">
+
+    @helper.form(action = routes.HomeController.importOrganization, 'id->"importOrg", 'name->"importOrg", 'enctype -> "multipart/form-data") {
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Creation Type</b></label>
+            <div class="col-md-12 ">
+                <label class="radio-inline"> <input type="radio"
+                                                    name="org-upload-type" id="manual" checked onclick="toggleCreation();"> Manual Creation
+                </label> <label class="radio-inline"> <input type="radio"
+                                                             name="org-upload-type" id="bulk" onclick="toggleCreation();"> Bulk Upload
+            </label>
+            </div>
+        </div>
+    </div>
+
+        <div class="form-group creationType bulk">
+            <div class="col-lg-12">
+                <label style="text-align: left; padding-bottom: 5px;" for="orgname"
+                       class="col-sm-12  control-label"><b>Enter Organization
+                    Name</b></label>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" value="" name="orgname"
+                           id="orgname" placeholder="Enter Organization Name">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label style="text-align: left; padding-bottom: 5px;"
+                       for="supportemail" class="col-sm-12  control-label"><b>Enter
+                    HIS URL</b></label>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" value=""
+                           name="hisURL" id="hisURL"
+                           placeholder="Enter HIS URL">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group creationType manual" style="display: none;">
+            <div class="col-lg-12">
+                <label style="text-align: left; padding-bottom: 5px;"
+                       for="excelFile" class="col-sm-12  control-label"><b>Upload Excel: </b><a class="example-link" href="/assets/download/Import_Example.xlsx" target="_blank" download>(Download Example)</a></label>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-sm-12">
+                    <input type="file" class="form-control" value=""
+                           name="excelFile" id="excelFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <div class="form-group hideThis">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   for="supportemail" class="col-sm-12  control-label"><b>Enter
+                Support Email</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="email" class="form-control" value=""
+                       name="supportemail" id="supportemail"
+                       placeholder="Enter Support Email">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group hideThis">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   for="supportnum" class="col-sm-12  control-label"><b>Enter
+                Support Contact Number</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span id="supportnumPrefix" class="input-group-text">+91</span>
+                    </div>
+                    <input type="text" class="form-control" value="" name="supportnum"
+                           id="supportnum"
+                           placeholder="Enter Support Contact Number 9876543210">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="create-organization-unit" class="modal-content-inside">
+
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="orgunit"
+                   class="col-sm-12 control-label"><b>Enter Organization
+                Unit</b> </label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" value="" id="orgunit"
+                       name="orgunit" placeholder="Enter Organization Unit Name"
+                       required="">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="selOrgOU"
+                   class="col-sm-12  control-label"><b>Select Organization</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="selOrgOU" name="selOrgOU" class="form-control">
+                    <option>OU1</option>
+                    <option>OU2</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="orgloc"
+                   class="col-sm-12 control-label"><b>Enter Location</b> </label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" value="" id="orgloc"
+                       name="orgloc" placeholder="Enter Location" required="">
+            </div>
+        </div>
+    </div>
+    <div class="form-group hideThis">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="orglat"
+                   class="col-sm-12 control-label"><b>Enter Latitude</b> </label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" value="" id="orglat"
+                       name="orglat" placeholder="Enter Latitude Ex: 12.1234" required="">
+            </div>
+        </div>
+    </div>
+    <div class="form-group hideThis">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="orglong"
+                   class="col-sm-12 control-label"><b>Enter Longitude</b> </label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" value="" id="orglong"
+                       name="orglong" placeholder="Enter Longitude Ex: 13.1234"
+                       required="">
+            </div>
+        </div>
+    </div>
+    <div class="form-group hideThis">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="orgemrno"
+                   class="col-sm-12 control-label"><b>Enter Emergency
+                Number</b> </label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span id="emrgnumPrefix" class="input-group-text">+91</span>
+                    </div>
+                    <input type="text" class="form-control" value="" name="orgemrno"
+                           id="orgemrno" placeholder="Enter Emergency Number 9876543210">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="create-department" class="modal-content-inside">
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   for="departmentName" class="col-sm-12 control-label"><b>Department
+                Name:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="departmentName"
+                       name="departmentName" placeholder="Enter Department Name">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="selOrgDep"
+                   class="col-sm-12 control-label"><b>Organization:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="selOrgDep" name="selOrgDep"
+                        onchange="loadOrgUnitAlternate(this, 'selOrgUnitDep');">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="ou_selector_region">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   for="selOrgUnitDep" class="col-sm-12 control-label"
+                   for="ou_deptselector"><b>Organization Unit:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="selOrgUnitDep" name="selOrgUnitDep" class="form-control">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="create-role" class="modal-content-inside">
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="rolaname"
+                   class="col-sm-12  control-label"><b>Role Name</b> </label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="roleName"
+                       id="roleName" placeholder="Enter Role Name">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;" for="roleType"
+                   class="col-sm-12  control-label"><b>Role Type:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" name="roleType" id="roleType">
+                    <option>Doctor</option>
+                    <option>Nurse</option>
+                    <option>Patient</option>
+                    <option>Technician</option>
+                    <option>Pharmacist</option>
+                    <option>Hospital IT</option>
+                    <option>Management</option>
+                    <option>ASP</option>
+                    <option>Others</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Organization:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="selOrg-Role" name="selOrg-Role"
+                        onchange="loadOrgUnitAlternate(this, 'selOrgUnit-Role');">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>OU Specific</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <label class="radio-inline"><input type="radio"
+                                                   name="selAccessOU" id="access_yes" checked="">
+                    Yes</label> <label
+                    class="radio-inline"><input type="radio" name="selAccessOU"
+                                                id="access_no"> No</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group accessBasedHide4Role">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Select an OU:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="selOrgUnit-Role"
+                        onchange="loadDepartmentListAlternate(this, 'selOrg-Role', 'selDep-Role');">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group hideThis">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Select Department</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="selDep-Role">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div id="create-user" class="modal-content-inside">
+
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="firstname" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>First Name</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                       placeholder="Enter First Name" id="user-first-name">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="lastname" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Last Name</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                       placeholder="Enter Last Name" id="user-last-name">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="username" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Username</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" placeholder="Enter Username"
+                       id="user-name">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="password" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Password</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="password" class="form-control"
+                       placeholder="Enter Password" id="user-password"
+                       autocomplete="new-password">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="conf_pwd" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Confirm Password</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="password" class="form-control"
+                       placeholder="Confirm Password" id="user-conf-password"
+                       autocomplete="new-password">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="email" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Email</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="email" class="form-control" placeholder="Enter Email"
+                       id="user-email">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="qualification"
+                   style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Qualification</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                       placeholder="Enter Qualification" id="user-qualification"
+                       value="MBBS">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="specialization"
+                   style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Specialization</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="user-specialization">
+                    <option>Cardiology</option>
+                    <option>Others</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="empid" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>ID Number</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                       placeholder="Enter ID Number" id="user-employee-id" value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="empid" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>AADHAR Number</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" maxlength="14" class="form-control"
+                       placeholder="Enter Aadhar Number 1234 5678 1234" id="user-aadhaar"
+                       value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="empid" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>PAN Number</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                       placeholder="Enter Pan Number ABCDE1234M" maxlength="10"
+                       id="user-pan" value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="empid" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>PASSPORT Number</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                       placeholder="Enter Passport Number P1234567" maxlength="8"
+                       id="user-passport" value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   for="user-phone" class="col-sm-12  control-label"><b>Enter
+                Contact Number</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span id="user-phone-prefix" class="input-group-text">+91</span>
+                    </div>
+                    <input type="text" class="form-control" value="" name="user-phone"
+                           id="user-phone" placeholder="Enter Contact Number 9876543210">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Gender</b></label>
+            <div class="col-md-12 ">
+                <label class="radio-inline"> <input type="radio"
+                                                    name="user-gender" id="male" checked> Male
+                </label> <label class="radio-inline"> <input type="radio"
+                                                             name="user-gender" id="female"> Female
+            </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lgss-12">
+            <label for="OrgUnitList"
+                   style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Organization</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="user-org"
+                        onchange="loadOrgUnitAlternate(this, 'user-org-unit');">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="OrgUnitList"
+                   style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Organization Unit</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="user-org-unit"
+                        onchange="loadDepartmentListAlternate(this, 'user-org', 'user-department');">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="UserRole" style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Role</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control " id="user-role">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="dept_for_creating_user">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Select Department</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="user-department">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Has access across all
+                other OU</b></label>
+            <div class="col-md-12 ">
+                <label class="radio-inline"> <input type="radio"
+                                                    name="user-ou-access" id="access_ou_yes"> Yes
+                </label> <label class="radio-inline"> <input type="radio"
+                                                             name="user-ou-access" id="access_ou_no"
+                                                             checked> No
+            </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group hideThis">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Has access across all
+                other Organization</b></label>
+            <div class="col-md-12 ">
+                <label class="radio-inline"> <input type="radio"
+                                                    name="user-universal-access"
+                                                    id="access_universal_yes"> Yes
+                </label> <label class="radio-inline"> <input type="radio"
+                                                             name="user-universal-access"
+                                                             id="access_universal_no" checked>
+                No
+            </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="form-group">
+        <div class="col-lg-12">
+            <label for="experience"
+                style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>Medical Id (Optional)</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                    placeholder="Enter MedicalId" id="user-medical-id">
+            </div>
+        </div>
+    </div>
+
+    person Education Details entries
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="education" style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>EDUCATION DETAILS</b></label> <label
+                for="education" style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>Instititue Name</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                    placeholder="Enter Institute Name" id="institutename">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="education" style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>Website Link</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                    placeholder="Enter Institute Website Link" id="websitelink">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="education" style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>Course </b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                    placeholder="Enter Course Name" id="coursename">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="education" style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>Specialization</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                    placeholder="Enter Specialization " id="eduspecializationname">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="education" style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>Start Date</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                    placeholder="Select Start date" id="edustartdate">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="education" style="text-align: left; padding-bottom: 5px;"
+                class="col-sm-12 control-label"><b>Completion Date</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control"
+                    placeholder="Select End date" id="eduenddate">
+            </div>
+        </div>
+    </div>
+</div> -->
+    <!-- Person Experience Entries --
+        <div class="form-group" >
+          <div class="col-lg-12">
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b>EXPERIENCE DETAILS</b></label>
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b>Organisation Name</b></label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Enter Organisation Name" id="exporgname">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <div class="col-lg-12">
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b>Website Link</b></label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Enter Org Website Link" id="expwebsitelink">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <div class="col-lg-12">
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b> Role </b></label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Enter Internal Role" id="internalrole">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <div class="col-lg-12">
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b> Department</b></label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Enter Department Name " id="expdepartment">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <div class="col-lg-12">
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b>Location</b></label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Enter Location " id="explocation">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <div class="col-lg-12">
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b>Start Date</b></label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Select Start date" id="expstartdate">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <div class="col-lg-12">
+            <label for="experience" style="text-align:left;padding-bottom:5px;" class="col-sm-12 control-label"><b>Completion Date</b></label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" placeholder="Select End date" id="expenddate">
+            </div>
+          </div>
+        </div>
+
+    </div>
+    -->
+</div>
+<div id="create-tab" class="modal-content-inside">
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Tab Name:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="tab-name"
+                       placeholder="Enter Tab Name">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12  control-label"><b>Header:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="tab-header"
+                       placeholder="Enter Tab Header">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Purpose:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="tab-purpose"
+                       placeholder="Enter Tab Purpose">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Choose a Template:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12 ">
+                <select class="form-control" id="tab-template">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Organization:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select class="form-control" id="tab-org"
+                        onchange="loadOrgUnitAlternate(this, 'tab-org-unit');">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>OU Specific:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <label class="radio-inline"><input type="radio"
+                                                   name="tab-ou-specific" id="ou_specific_yes"
+                                                   checked=""> Yes</label>
+                <label class="radio-inline"><input type="radio"
+                                                   name="tab-ou-specific" id="ou_specific_no">
+                    No</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group accessBasedHide4TabOU">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label" for="tab-org-unit"><b>Select
+                an OU:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="tab-org-unit" class="form-control"
+                        onchange="loadDepartmentListAlternate(this, 'tab-org', 'tab-department');">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group accessBasedHide4TabOU">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Department Specific:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <label class="radio-inline"><input type="radio"
+                                                   name="tab-dep-specific" id="dep_specific_yes"
+                                                   checked="">
+                    Yes</label> <label class="radio-inline"><input type="radio"
+                                                                   name="tab-dep-specific"
+                                                                   id="dep_specific_no">
+                No</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group accessBasedHide4TabDep accessBasedHide4TabOU">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label" for="tab-dep"><b>Select
+                an Department:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="tab-department" class="form-control">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label style="text-align: left; padding-bottom: 5px;"
+                   class="col-sm-12 control-label"><b>Select a Role:</b></label>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-sm-12">
+                <select id="tab-role" class="form-control">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>

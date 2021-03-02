@@ -1,0 +1,36 @@
+# https://www.playframework.com/documentation/latest/Configuration
+
+# todo disable content security policy, should only allow certain hosts. Read: https://devco.re/blog/2014/04/08/security-issues-of-http-headers-2-content-security-policy/
+play.filters.headers.contentSecurityPolicy = null
+
+play.http.secret.key="0P_i:AV`7_sLjQQUNg>@vzanpo1IpHw5675KsH]a^QJEOFO<?EcTKylA94El;uPx"
+# This is the main configuration file for the application.
+# https://www.playframework.com/documentation/latest/ConfigFile
+
+include "ldap.conf"
+
+include "mattermost.conf"
+
+include "mysql.conf"
+# include "h2.conf"
+
+
+play.http.errorHandler = "ErrorHandler"
+
+play.filters.enabled += "play.filters.csrf.CSRFFilter"
+
+play.filters {
+## Allowed hosts filter configuration
+  # https://www.playframework.com/documentation/latest/AllowedHostsFilter
+  # ~~~~~
+  # Play provides a filter that lets you configure which hosts can access your application.
+  # This is useful to prevent cache poisoning attacks.
+  hosts {
+    # Allow requests to localhost on ports 9000 (dev) and 19001 (default test) ports
+    allowed = ["localhost:9000", "164.164.87.35:9000", "192.168.1.235:9000", "192.168.1.101:9000"]
+  }
+}
+
+
+uploadBasePath="D:/homingadmin/Uploads/"
+#uploadBasePath="/home/srit/Repository/Uploads/"

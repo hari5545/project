@@ -1,0 +1,117 @@
+.hideThis {
+    display: none;
+}
+
+.tab-move-arrows {
+    padding-top: 0.1rem !important;
+    padding-bottom: 0.1rem !important;
+}
+
+/*.p-2 {
+    padding: inherit !important;
+}*/
+.card-box {
+    background: #FAFAFA;
+    min-height: 13em;
+    position: relative;
+    padding: 1em;
+    margin-bottom: 20px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    flex: 1 1 auto;
+}
+
+.card-box:hover {
+    background: linear-gradient(to right, #1fa2ff17 0%, #12d8fa2b 51%, #1fa2ff36 100%);
+}
+
+.card-box:after {
+    display: block;
+    background: #277EAD;
+    border-top: 3px solid #277EAD;
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.card-title h2 {
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 1em;
+    line-height: 1;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.card-title p {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.card-link a {
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    color: #FF5722;
+    font-size: 15px;
+}
+
+.icon-image {
+    width: 4em;
+    padding-bottom: 1em;
+}
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.icon-image-role {
+    width: 6em;
+}
+
+
+.radio-inline {
+    padding: 0 0.5em;
+}
+
+.restricted-height {
+    height: 30em;
+    display: block;
+    overflow-y: scroll;
+}
+
+/* Important part */
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    min-height: auto;
+    max-height: 28em;
+    overflow-y: auto;
+    padding-bottom: 2em;
+}
+
+.ui-autocomplete { 
+    max-height: 300px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    z-index: 1100;
+}
+
+.card-body {
+    padding: 1rem;
+}

@@ -1,0 +1,192 @@
+@(surveyList: List[models.dto.SurveyHeaderDto])(surveyDetails: List[models.entity.SurveyDetail])
+@import helper._
+
+<div id="view-survey" class="modal-content-inside">
+	@if(surveyList.size>0){ 
+		@for(i <-0 until surveyList.size) {
+	<div class="row">
+		<div class="form-group">
+			<div>
+				<input type="hidden" class="form-control"
+					value="@surveyList.get(i).getId()" name="id" id="id">
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						 class="col-sm-12 control-label"><b>Organization:</b></label>
+				</div>
+				<div>
+					<select class="form-control" id="selOrg" name="selOrg">
+						<option>@surveyList.get(i).getOrganizationName()</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group" id="ou_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="selOrgUnit" class="col-sm-12 control-label"
+						for="ou_deptselector"><b>Organization Unit:</b></label>
+				</div>
+				<div>
+					<select id="selOrgUnit" name="selOrgUnit"
+						class="form-control">
+						<option>@surveyList.get(i).getOrganizationUnitName()</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="selTabSurvey" class="col-sm-12 control-label"
+						for="ou_tabselector"><b>Tabs:</b></label>
+				</div>
+				<div>
+					<select id="selTab" name="selTab" class="form-control">
+						<option>@surveyList.get(i).getChannel()</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="startDt" class="col-sm-12 control-label"
+						for="ou_tabselector"><b>Start Date:</b></label>
+				</div>
+
+				<div>
+					<input type="text" class="form-control" name="startDt"
+						id="startDt" value="@surveyList.get(i).getStartDate()" placeholder="@surveyList.get(i).getStartDate()">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" 
+						class="col-sm-12 control-label" for="endDt" for="ou_tabselector"><b>End
+							Date:</b></label>
+				</div>
+
+				<div>
+					<input type="text" class="form-control"  name="endDt"
+						id="endDt" value="@surveyList.get(i).getEndDate()" placeholder="@surveyList.get(i).getEndDate()">
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" 
+						class="col-sm-12 control-label" for="ou_tabselector"><b>Survey
+							Name:</b></label>
+				</div>
+
+				<div>
+					<input type="text" class="form-control"  name="surveyNm"
+						id="surveyNm" value="@surveyList.get(i).getSurveyName()" placeholder="@surveyList.get(i).getSurveyName()">
+
+				</div>
+			</div>
+		</div>
+		}
+	 }
+		<div class="col-md-12">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" for="endDate"
+						class="col-sm-12 control-label" for="ou_tabselector"><b>Question:</b></label>
+				</div>
+
+				<div>
+					<textarea rows="4" class="form-control" name="question"
+						id="question" placeholder="Enter Question"></textarea>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;" for="types"
+						class="col-sm-12 control-label" for="ou_tabselector"><b>Types:</b></label>
+				</div>
+				<div>
+					<select id="types" name="types" class="form-control"
+						onchange="showMultipleTypes(this,'edit-input-options')">
+						<option>--Select--</option>
+						<option>Rating</option>
+						<option>Multiple</option>
+						<option>Yes/No</option>
+						<option>TextBox</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group" id="edit-input-options">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="input-options" class="col-sm-12 control-label"><b>Options
+							:</b></label>
+				</div>
+				<div>
+					<input type="text" class="form-control" name="options" id="options"
+						placeholder="Enter options" />
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-group">
+				<button id="add-btn"  type="button"
+					class="btn btn-primary btn-block"
+					style="margin-top: 35px; right: 20px; left: 15px; background-color: #4CAF50;"
+					onClick="updateSurvey()">Add</button>
+			</div>
+		</div>
+
+		@if(surveyDetails.size>0){
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Question</th>
+						<th scope="col">Type</th>
+						<th scope="col">Answers</th>
+						<th scope="col">Select</th>
+					</tr>
+				</thead>
+				@for(i <-0 until surveyDetails.size) {
+				<tbody id="tbody">
+					<tr>
+					 <!--  	<td style="display:none;" id="id">@surveyDetails.get(i).getId</td>
+						<td scope="col" id="question">@surveyDetails.get(i).getQuestion()</td>
+						<td scope="col" id="types">@surveyDetails.get(i).getType()</td>
+						<td scope="col" id="options">@surveyDetails.get(i).getAnswers()</td>
+						<td scope="col"><input type="checkBox" class="form-check-input" name="checkbox" id="checkbox" checked/></td> -->
+					</tr>
+				</tbody>
+				} 
+			}
+			</table>
+		</div>
+		<div class="form-group">
+			<button style="margin-left: 700px;" type="button"
+				class="btn btn-primary secondary-blue" onClick="saveSurvey()">save</button>
+		</div>
+	</div>
+</div> 

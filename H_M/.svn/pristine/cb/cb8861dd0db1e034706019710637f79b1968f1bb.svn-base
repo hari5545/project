@@ -1,0 +1,33 @@
+@(surveyList: List[models.entity.SurveyDto])
+@import helper._
+
+<div class="table-responsive">
+	<table id="resultTable" class="table table-sm">
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">OrganizationName</th>
+							<th scope="col">OrganizationUnitName</th>
+							<th scope="col">Channel</th>
+							<th scope="col">StartDate</th>
+							<th scope="col">EndDate</th>
+							<th scope="col">SurveyName</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+                    @if(surveyList.size>0){
+						@for(i <-0 until surveyList.size) {
+							<tr>
+							<td scope="col">@surveyList.get(i).getOrganizationName()</td>
+							<td scope="col">@surveyList.get(i).getOrganizationUnitName()</td>
+							<td scope="col">@surveyList.get(i).getChannel()</td>
+							<td scope="col">@surveyList.get(i).getStartDate()</td>
+							<td scope="col">@surveyList.get(i).getEndDate()</td>
+							<td scope="col"><a href="#"  onClick="getSurvey('@surveyList.get(i).getSurveyName()')">@surveyList.get(i).getSurveyName()</a></td>
+						</tr>
+						}
+					}else{
+					<tr class="table-danger"><td>No survey Available</td></tr>
+					}
+	</table>
+</div>

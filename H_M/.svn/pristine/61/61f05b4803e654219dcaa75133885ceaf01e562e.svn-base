@@ -1,0 +1,57 @@
+@(param: String) @import helper._
+
+<!-- create news model body -->
+
+<div id="create-news" class="modal-content-inside">
+
+	@ckeditor("")
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="selOrgNews" class="col-sm-12 control-label"><b>Organization:</b></label>
+				</div>
+				<div>
+					<select class="form-control" id="selOrgNews" name="selOrgNews"
+						onchange="loadOrgUnitAlternate(this, 'selOrgUnitNews');">
+						<option>--Select--</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group" id="ou_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="selOrgUnitNews" class="col-sm-12 control-label"
+						for="ou_deptselector"><b>Organization Unit:</b></label>
+				</div>
+				<div>
+					<select id="selOrgUnitNews" name="selOrgUnitNews"
+						class="form-control"
+						onchange="loadTabsOrgUnitAlternate(this,'selOrgNews','selTabNews');">
+						<option>--Select--</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group" id="tab_selector_region">
+				<div>
+					<label style="text-align: left; padding-bottom: 5px;"
+						for="selTabNews" class="col-sm-12 control-label"
+						for="ou_tabselector"><b>Tabs:</b></label>
+				</div>
+				<div>
+					<select id="selTabNews" name="selTabNews" class="form-control">
+						<option>--Select--</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

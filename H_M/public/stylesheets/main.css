@@ -1,0 +1,115 @@
+body {
+	background-color: #E0E0E0; //grey
+}
+
+/*body{
+    background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
+}*/
+.master-container{
+    margin-top: 60px;
+}
+
+.product-description {
+	text-align: justify;
+}
+
+.login-content-desc {
+    background-image: -moz-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #1b81d7), color-stop(100%, #1f4869));
+    background-image: -webkit-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: -o-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: -ms-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( endColorstr='#1b81d7', startColorstr='#1f4869',GradientType=1 );
+    height: auto;
+    padding: 32px;
+}
+
+.gradient-bar {
+    background-image: -moz-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #1b81d7), color-stop(100%, #1f4869));
+    background-image: -webkit-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: -o-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: -ms-linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    background-image: linear-gradient(277deg, #1b81d7 0%, #1f4869 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( endColorstr='#1b81d7', startColorstr='#1f4869',GradientType=1 );
+}
+
+/*
+	color definitions
+*/
+.primary-blue {
+	background-color: #277FAD !important; //primary blue color
+}
+.secondary-blue {
+    background-color: #347AB7 !important; //primary blue color
+}
+.primary-grey {
+    color: #E0E0E0 !important;
+}
+
+hr {
+    margin-top: 0;
+}
+.inner-col {
+    padding: 0;
+}
+
+.footer {
+    color: #848484;
+    background-color: #090B11;
+}
+
+.modal-header {
+    background-color: #347AB7;
+    color: white;
+    font-weight: bold;
+    border-radius: 0;
+}
+.modal-footer {
+    padding-top: 0;
+    border-radius: 0;
+    border: 0;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-body *{
+    font-size: 14px;
+}
+.modal-footer *{
+    font-size: 14px;
+}
+
+.btn-primary {
+    border-radius: 0.1rem;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+
+.btn-outline-primary {
+    color: #277FAD;
+    border-color: #277FAD;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #277FAD;
+    border-color: #277FAD;
+}
+
+.hide-this {
+    display: none;
+}
+
+
+/*//----------------------------------------------------------------------------------//*/
+.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20rem; }
+.toggle.ios .toggle-handle { border-radius: 20rem; }
+
+
+.form-control {
+    border-radius: 1px;
+}

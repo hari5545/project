@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.eclipse.persistence:org.eclipse.persistence.sdo:2.7.4:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.persistence/org.eclipse.persistence.sdo/jars/org.eclipse.persistence.sdo-2.7.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.persistence/org.eclipse.persistence.sdo/srcs/org.eclipse.persistence.sdo-2.7.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,9 @@
+mattermost {  
+  serverURL="http://13.234.225.120"
+  #serverURL="http://192.168.1.204"
+  serverPORT="8065"
+  mm_username="sakthi"
+  mm_password="Sakthi@1234"
+  #mm_username="mmadmin"
+  #mm_password="Password@2020"
+}

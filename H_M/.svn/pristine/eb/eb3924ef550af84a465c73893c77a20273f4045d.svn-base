@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.glassfish.ha:ha-api:3.1.12:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.glassfish.ha/ha-api/hk2-jars/ha-api-3.1.12.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.glassfish.ha/ha-api/srcs/ha-api-3.1.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
